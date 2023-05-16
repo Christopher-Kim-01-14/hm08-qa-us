@@ -14,9 +14,9 @@ exports.config = {
         browserName: 'chrome',
         acceptInsecureCerts: true,
         'goog:chromeOptions': {
-            args: ['headless', 'disable-gpu']
+            args: [/*'headless', 'disable-gpu'*/]
         }
-    }/*,
+    },/*
     {
         maxInstances: 5,
         browserName: 'firefox',
@@ -28,15 +28,20 @@ exports.config = {
 ],
     logLevel: 'error',
     bail: 0,
-    baseUrl: 'https://2c0ae56b-6d81-4be8-9837-0ef1c0c04c6c.serverhub.practicum-services.com',
+    baseUrl: 'https://357a6a7b-ec74-4460-beae-e30164ce17dd.serverhub.practicum-services.com',
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
-    services: [
-        'chromedriver', 
+    services: [[
+        ['chromedriver', {
+            logFileName: 'wdio-chromedriver.log', // default
+            outputDir: 'driver-logs', // overwrites the config.outputDir
+            args: ['--silent'],
+            chromedriverCustomPath:'C:\\Users\\Chris\\Downloads\\chromedriver_win32\\chromedriver.exe'
+        }], 
         'geckodriver', 
         'intercept', 
-    ],
+    ]],
     framework: 'mocha',
     reporters: ['spec'],
     mochaOpts: {

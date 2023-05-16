@@ -1,7 +1,7 @@
 # Sprint 8 project
 
 This is a webdriverIO testing suite for the Urban Routes app. It tests the complete process of ordering a taxi.
-7/9 tests in this project PASS.
+1 test with 9 steps in this project PASS.
 
 Before using the project install Node.js and the project files.
 

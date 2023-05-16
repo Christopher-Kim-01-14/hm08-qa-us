@@ -7,6 +7,7 @@ module.exports = {
     cardNumber: '#number',
     cardCode: '.card-second-row #code',
     commentField: '#comment',
+    filledCommentField: '#comment[value="Sup, dude!"]',
     
     // Buttons
     callATaxiButton: 'button=Call a taxi',
@@ -17,13 +18,21 @@ module.exports = {
     addCardButton: 'div=Add card',
     linkCardButton: 'button=Link',
     closePaymentMethodModalButton: '.payment-picker .close-button',
-    selectSupportive: '.tcard-title .Supportive',
-    blanketAndHandkerchiefsButton: 'slider round',
+    selectSupportive: 'div=Supportive',
+    blanketAndHandkerchiefsButton: '.switch',
+    iceCreamPlusButton: 'counter-plus',
+    openCarModal: '.smart-button-wrapper .smart-button',
+
     // Modals
     phoneNumberModal: '.modal',
+    carSearchModal: '.order-subbody',
+
     // Misc
     cardSignatureStrip: '.plc',
     cardPaymentMethodIcon: 'img[alt="card"]',
+    iceCreamCounter: '.counter-value=2',
+    driverRating: '.order-btn-rating',
+
     // Functions
     fillAddresses: async function(from, to) {
         const fromField = await $(this.fromField);
@@ -39,7 +48,7 @@ module.exports = {
         await phoneNumberButton.waitForDisplayed();
         await phoneNumberButton.click();
         const phoneNumberModal = await $(this.phoneNumberModal);
-        await phoneNumberModal.waitForDisplayed()
+        await phoneNumberModal.waitForDisplayed();
         const phoneNumberField = await $(this.phoneNumberField);
         await phoneNumberField.waitForDisplayed();
         await phoneNumberField.setValue(phoneNumber);
@@ -58,8 +67,8 @@ module.exports = {
         // use first response
         // add check that we have only one response
         const code = await requests[0].response.body.code
-        await codeField.setValue(code)
-        await $(this.confirmButton).click()
+        await codeField.setValue(code);
+        await $(this.confirmButton).click();
     },
     addPaymentMethodCard: async function() {
         const paymentMethodButton = await $(this.paymentMethodButton);
@@ -96,16 +105,36 @@ module.exports = {
         await closePaymentMethodModalButton.waitForDisplayed();
         await closePaymentMethodModalButton.click();
     },
-    fillComment: async function() {
+    fillComment: async function(comment) {
         // Input message to driver
         const commentField = await $(this.commentField);
         await commentField.waitForDisplayed();
-        await commentField.setValue('Sup, dude!');
+        await commentField.setValue(comment);
     },
     clickBlanketButton: async function() {
         // Click blanket and handkerchiefs button
         const blanketAndHandkerchiefsButton = await $(this.blanketAndHandkerchiefsButton);
         await blanketAndHandkerchiefsButton.waitForDisplayed();
         await blanketAndHandkerchiefsButton.click();
-    }        
+    },
+    clickIceCreamButton: async function() {
+        // Click ice cream plus button twice
+        const iceCreamPlusButton = await $(this.iceCreamPlusButton);
+        await iceCreamPlusButton.waitForDisplayed();
+        await iceCreamPlusButton.click();
+        await iceCreamPlusButton.click();
+        /*for (let i=0; i <=2; i++) {
+            await iceCreamPlusButton.click();
+        }*/
+    },
+    waitForFillComment: async function() {
+        const fillComment = await $(this.commentField);
+        await fillComment.waitForDisplayed();
+    },
+    openCarSearchModal: async function() {
+        // Click order button
+        const clickOrderButton = await $(this.openCarModal);
+        await clickOrderButton.waitForDisplayed();
+        await clickOrderButton.click();
+    },       
 };
