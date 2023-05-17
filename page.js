@@ -19,9 +19,10 @@ module.exports = {
     linkCardButton: 'button=Link',
     closePaymentMethodModalButton: '.payment-picker .close-button',
     selectSupportive: 'div=Supportive',
-    blanketAndHandkerchiefsButton: '.switch',
-    iceCreamPlusButton: 'counter-plus',
-    openCarModal: '.smart-button-wrapper .smart-button',
+    blanketAndHandkerchiefsButton: '//div[contains(text(),"Blanket and handkerchiefs")]/following-sibling::div',
+    reqsButton: '.reqs',
+    iceCreamPlusButton: '.counter-plus',
+    openCarModal: '.smart-button',
 
     // Modals
     phoneNumberModal: '.modal',
@@ -30,8 +31,10 @@ module.exports = {
     // Misc
     cardSignatureStrip: '.plc',
     cardPaymentMethodIcon: 'img[alt="card"]',
-    iceCreamCounter: '.counter-value=2',
+    checkBlanketOn: '.switch-input',
+    iceCreamCounter: '.counter-value',
     driverRating: '.order-btn-rating',
+    orderTimer: '.order-header-time',
 
     // Functions
     fillAddresses: async function(from, to) {
@@ -112,12 +115,20 @@ module.exports = {
         await commentField.setValue(comment);
     },
     clickBlanketButton: async function() {
+        const orderReqs = await $(this.reqsButton);
+        await orderReqs.waitForDisplayed();
+        await orderReqs.scrollIntoView();
+        await orderReqs.click();
         // Click blanket and handkerchiefs button
         const blanketAndHandkerchiefsButton = await $(this.blanketAndHandkerchiefsButton);
         await blanketAndHandkerchiefsButton.waitForDisplayed();
         await blanketAndHandkerchiefsButton.click();
     },
     clickIceCreamButton: async function() {
+        const orderReqs = await $(this.reqsButton);
+        await orderReqs.waitForDisplayed();
+        await orderReqs.scrollIntoView();
+        await orderReqs.click();
         // Click ice cream plus button twice
         const iceCreamPlusButton = await $(this.iceCreamPlusButton);
         await iceCreamPlusButton.waitForDisplayed();

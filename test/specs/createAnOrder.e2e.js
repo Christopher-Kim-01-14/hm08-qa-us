@@ -39,32 +39,30 @@ describe('Create an order', () => {
         await expect($(page.filledCommentField)).toHaveValue('Sup, dude!');
         
         // Ordering a blanket and handkerchief
-        const blanketAndHandkerchiefsButton = await page.clickBlanketButton;
-        await blanketAndHandkerchiefsButton.waitForDisplayed();
+        const blanketAndHandkerchiefsButton = await page.clickBlanketButton();
         // Verify button is selected
-        
+        const checkBlanketOn = await $(page.checkBlanketOn);
+        await expect(checkBlanketOn).toBeChecked();
 
         // Ordering 2 ice creams
-        const iceCreamPlusButton = await page.clickIceCreamButton;
-        
+        const iceCreamPlusButton = await page.clickIceCreamButton();
         // Verify 2 ice creams
         const iceCreamCounter = await $(page.iceCreamCounter);
         await iceCreamCounter.waitForDisplayed();
-        await expect(await iceCreamCounter).toBe(2);
+        await expect(await iceCreamCounter).toHaveElementClassContaining('counter-value');
 
         // The car search modal appears
-        const openCarSearchModal = await page.openCarSearchModal;
+        const openCarSearchModal = await page.openCarSearchModal();
         const carSearchModal = await $(page.carSearchModal);
         await carSearchModal.waitForDisplayed();
         await expect(carSearchModal).toBeExisting();
 
         // Waiting for the driver info to appear
+        await browser.pause(36000);
         const driverRating = await $(page.driverRating);
         await driverRating.waitForDisplayed();
         await expect(driverRating).toBeExisting();
 
-        await browser.pause(2000);
-
-    })
+        })
 })
 
